@@ -1,0 +1,10 @@
+.container
+  .row
+    .span9.main
+      .page-header
+        h1 Edit
+      form.form(action="/sites/#{site.filename}", method= 'POST')
+        .row 
+          .span7.offset1
+            textarea.span7(name='content', rows=10)= JSON.stringify(site.content, null, 2)
+            input.btn.btn-primary(type='submit', value="Update")

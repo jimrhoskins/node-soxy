@@ -1,0 +1,7 @@
+{
+  "name": "Pegasus",
+  "description": "Some helpful description",
+  "hosts": "pegasus.goj.im pegg.goj.im peggy.goj.im",
+  "type": "proxy",
+  "target_port": 8888
+}

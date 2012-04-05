@@ -1,0 +1,53 @@
+.container
+  .row
+    .span9.main
+      .page-header
+        .pull-right
+          a.btn.btn-success
+            i.icon-white.icon-plus
+            |   New Site
+        h1 Sites
+      table.table.sites
+        - each  siteObject, id in sites
+          - site = siteObject.content
+          tr
+            td.span2
+              .hosts
+                - each host in site.hosts.split(/[\s,]+/)
+                  div
+                    strong= host
+            td.span7
+              .actions.pull-right
+                a.btn.btn-danger
+                  i.icon-white.icon-remove
+                  |  Delete
+                |  
+                a.btn.btn-inverse
+                  i.icon-white.icon-lock
+                  |  Disable
+                |  
+                a.btn.btn-primary(href="/sites/#{id}/edit")
+                  i.icon-white.icon-pencil
+                  |  Edit
+              hgroup
+                h2
+                  = site.name
+                  |  
+                  small  &nbsp;(#{siteObject.filename}.json)
+                h3
+                  small= site.description
+              a.btn(data-toggle="collapse", data-target="#config"+site.name) Source
+              div.collapse(id="config"+site.name, style="height:0")
+                br
+                pre.prettyprint.linenums= JSON.stringify(site,null, 2)
+
+        tfoot
+          tr
+            td(colspan=2) Nothing to do here.
+
+    .span3
+      form
+        label 
+          strong Server Running Since
+        span.uneditable-input= serverStarted
+      a.btn.btn-danger(href='/reset') Reload Server

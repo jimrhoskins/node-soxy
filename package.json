@@ -1,0 +1,22 @@
+{
+  "author": "Jim Hoskins <jim@jimhoskins.com>",
+  "name": "soxy",
+  "description": "Socket Proxy",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.6.10"
+  },
+  "dependencies": {
+    "http-proxy": "*",
+    "jade": "*",
+    "express": "*",
+    "socket.io": "*",
+    "moment": "*",
+    "connect": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}

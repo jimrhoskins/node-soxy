@@ -1,0 +1,7 @@
+{
+  "name": "Galacticax",
+  "description": "The galactica is mighty",
+  "hosts": "galactica.goj.im gal.goj.im",
+  "type": "proxy",
+  "target_port": 4322
+}
