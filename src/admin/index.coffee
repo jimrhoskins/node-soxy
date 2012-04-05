@@ -1,5 +1,6 @@
 express = require 'express'
 {spawn} = require 'child_process'
+less = require('connect-lesscss')
 
 module.exports = (getServer) ->
   app = express.createServer()
@@ -9,27 +10,30 @@ module.exports = (getServer) ->
   app.configure ->
     app.set 'views', "#{__dirname}/views"
     app.use express.static("#{__dirname}/public")
+    app.use "/admin.css", less("#{__dirname}/less/admin.less")
+    app.use (req, res, next) ->
+      req.server = getServer()
+      next()
 
   app.get '/', (req, res) ->
-    sites = getServer().sites
     res.render 'index.jade', 
-      sites: sites
-      server: getServer()
-      serverStarted: require('moment')(getServer().startedAt).calendar()
+      sites: req.server.sites.all()
+      server: req.server
+      serverStarted: require('moment')(req.server.startedAt).calendar()
 
   app.get '/sites/:id/edit', (req, res, next) ->
-    site = getServer().sites[req.params.id]
+    site = req.server.sites.find(req.params.id)
     if site
       res.render 'edit.jade', site: site
     else
       next()
 
   app.post '/sites/:id', (req, res, next) ->
-    site = getServer().sites[req.params.id]
+    site = req.server.sites.find(req.params.id)
     if site
-      site.content = JSON.parse(req.body.content)
-      site.save getServer().config, (err) ->
-        getServer().reload()
+      site.data = JSON.parse(req.body.content)
+      site.write (err) ->
+        req.server.reload()
         res.redirect '/'
     else
       next()
@@ -39,7 +43,7 @@ module.exports = (getServer) ->
     res.render 'log.jade'
 
   app.get '/reset', (req, res) ->
-    getServer().reload()
+    req.server.reload()
     res.redirect('/')
 
 

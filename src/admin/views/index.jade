@@ -8,12 +8,11 @@
             |   New Site
         h1 Sites
       table.table.sites
-        - each  siteObject, id in sites
-          - site = siteObject.content
+        - each site in sites
           tr
             td.span2
               .hosts
-                - each host in site.hosts.split(/[\s,]+/)
+                each host in site.hosts()
                   div
                     strong= host
             td.span7
@@ -26,20 +25,20 @@
                   i.icon-white.icon-lock
                   |  Disable
                 |  
-                a.btn.btn-primary(href="/sites/#{id}/edit")
+                a.btn.btn-primary(href="/sites/#{site.id()}/edit")
                   i.icon-white.icon-pencil
                   |  Edit
               hgroup
                 h2
-                  = site.name
+                  = site.data.name
                   |  
-                  small  &nbsp;(#{siteObject.filename}.json)
+                  small  &nbsp;(#{site.basename()})
                 h3
-                  small= site.description
-              a.btn(data-toggle="collapse", data-target="#config"+site.name) Source
-              div.collapse(id="config"+site.name, style="height:0")
+                  small= site.data.description
+              a.btn(data-toggle="collapse", data-target="#config"+site.data.name) Source
+              div.collapse(id="config"+site.data.name, style="height:0")
                 br
-                pre.prettyprint.linenums= JSON.stringify(site,null, 2)
+                pre.prettyprint.linenums=site.serialize()
 
         tfoot
           tr

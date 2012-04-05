@@ -3,8 +3,8 @@
     .span9.main
       .page-header
         h1 Edit
-      form.form(action="/sites/#{site.filename}", method= 'POST')
+      form.form(action="/sites/#{site.id()}", method= 'POST')
         .row 
           .span7.offset1
-            textarea.span7(name='content', rows=10)= JSON.stringify(site.content, null, 2)
+            textarea.span7(name='content', rows=10)= site.serialize()
             input.btn.btn-primary(type='submit', value="Update")
