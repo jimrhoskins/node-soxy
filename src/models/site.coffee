@@ -10,7 +10,7 @@ class Site extends JsonFile
     @errors = []
     unless  @id().match(/^[-a-z0-9_\.]+$/i)
       @errors.push('filename must contain only letters, numbers, dots, dashes, and underscores')
-    unless typeof @data.name is 'string' and @data.name.length > 3
+    unless typeof @data.name is 'string' and @data.name.length >= 3
       @errors.push('name must be at least 3 characters')
     unless typeof @data.hosts is 'string'
       @errors.push('hosts must be a space separated list of hostnames')

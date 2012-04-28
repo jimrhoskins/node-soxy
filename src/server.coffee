@@ -3,6 +3,7 @@ connect = require 'connect'
 {Config} = require './config'
 {SitesManager} = require './models/site'
 {HandlersManager} = require './models/handler'
+{AppsManager} = require './process'
 {Router} = require './router'
 
 class Server
@@ -11,12 +12,13 @@ class Server
     @config = new Config(@env)
     @sites = new SitesManager(@env)
     @handlers = new HandlersManager(@env)
+    @apps = new AppsManager
     @reload()
 
   reload: ->
     @sites.reload()
     @handlers.reload()
-    @router = new Router(@sites, @handlers)
+    @router = new Router(@)
     @logfile = "#{@env.logPath}/soxy.log"
 
 
@@ -39,7 +41,7 @@ class Server
     @server.use (req, res, next) =>
       handler = @router.handlerForRequest(req, 'request')
       if handler
-        handler(req, res, next) 
+        handler(req, res) 
       else
         next()
 

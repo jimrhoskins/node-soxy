@@ -14,7 +14,7 @@ class HandlersManager
       @handlers[handler.name] = handler
 
 
-  getForSite: (site) ->
+  getForSite: (site, server) ->
     # Load, config and return handler
     data = JSON.parse(site.serialize(true))
     handler = @handlers[data.type]
@@ -27,7 +27,7 @@ class HandlersManager
       if options.default
         data[key] ?= options.default
 
-    handler.builder(data)
+    handler.builder(data, server)
 
 
 

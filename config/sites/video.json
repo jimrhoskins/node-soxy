@@ -1,0 +1,7 @@
+{
+  "name": "Video",
+  "description": "Video Server",
+  "hosts": "video.goj.im",
+  "type": "foreman",
+  "root": "/home/jhoskins/dev/codemeet/"
+}

@@ -1,13 +1,13 @@
 class Router
-  constructor: (@sites, @handlers) ->
+  constructor: (@server) ->
     @loadHostTable()
 
 
   loadHostTable: ->
     @hosts = {}
 
-    for site in @sites.all()
-      handler = @handlers.getForSite(site)
+    for site in @server.sites.all()
+      handler = @server.handlers.getForSite(site, @server)
       if handler
         for host in site.hosts()
           @hosts[host] = handler

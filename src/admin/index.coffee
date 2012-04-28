@@ -16,8 +16,10 @@ module.exports = (getServer) ->
       next()
 
   app.get '/', (req, res) ->
+    console.log req.server.apps
     res.render 'index.jade', 
       sites: req.server.sites.all()
+      apps: req.server.apps.all()
       server: req.server
       serverStarted: require('moment')(req.server.startedAt).calendar()
 
@@ -33,6 +35,7 @@ module.exports = (getServer) ->
     if site
       site.data = JSON.parse(req.body.content)
       site.write (err) ->
+        return next(err) if err
         req.server.reload()
         res.redirect '/'
     else

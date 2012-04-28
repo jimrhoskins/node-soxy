@@ -50,3 +50,6 @@
           strong Server Running Since
         span.uneditable-input= serverStarted
       a.btn.btn-danger(href='/reset') Reload Server
+      hr
+      each app in apps
+        .app= app.description()

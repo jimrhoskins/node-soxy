@@ -1,0 +1,8 @@
+{
+  "name": "GFX",
+  "description": "Maccman's GFX Project",
+  "hosts": "gfx.goj.im g.goj.im",
+  "type": "static",
+  "index": true,
+  "documentRoot": "/home/jhoskins/dev/gfx/"
+}
